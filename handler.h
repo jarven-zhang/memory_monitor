@@ -10,7 +10,7 @@ public:
     int start();
 
 private:
-    int getMemery();
+    int getMemory();
 
     int do_restart();
 

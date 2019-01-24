@@ -26,7 +26,7 @@ Handler::Handler():
 /*
  * 获取系统的内存总量及空余量
 */
-int Handler::getMemery()
+int Handler::getMemory()
 {
     string rst;
     if(0 > RmTool::getShellResult(GET_MEM, rst, false))
@@ -38,13 +38,13 @@ int Handler::getMemery()
     {
         return -1;
     }
-//    cout << totlal_value << endl;
+//    cout << "total memory: " << totlal_value << " kb" <<  endl;
 
     if(0 > RmTool::getKeyValue(rst, "MemFree", this->free_value))
     {
         return -1;
     }
-//    cout << free_value << endl;
+//    cout << "free memory: " <<free_value << " kb" << endl;
 
     return 0;
 }
@@ -82,7 +82,7 @@ int Handler::start()
 {
     while (1)
     {
-        if(0 > getMemery())
+        if(0 > getMemory())
         {
             return -1;
         }
