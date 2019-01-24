@@ -119,7 +119,6 @@ int RmTool::getKeyValue(const string srcstr, const string key, string& value)
         // 再获取两个空格之间的数值，单位不用管，就让它默认是KB
         end   = srcstr.find(" ", start);
         value = srcstr.substr(start, end - start);
-
     }
     catch(std::out_of_range)
     {
