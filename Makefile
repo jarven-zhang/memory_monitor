@@ -1,4 +1,4 @@
-CC      = g++
+CC      = g++ -std=c++11
 OBJ     = main.o handler.o  rmtool.o
 VPATH   = src:..
 server:$(OBJ)
