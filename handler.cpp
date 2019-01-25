@@ -42,17 +42,13 @@ int Handler::getMemory()
     {
         return -1;
     }
-#if ZHH_DEBUG
     cout << "total memory: " << totlal_value << " kb" <<  endl;
-#endif
 
     if(0 > RmTool::getKeyValue(rst, MEM_FREE, this->free_value))
     {
         return -1;
     }
-#if ZHH_DEBUG
     cout << "free  memory: " <<free_value << " kb" << endl;
-#endif
 
     return 0;
 }
@@ -64,7 +60,7 @@ int Handler::do_restart()
 
     double percentage = (total - free) / total;
 
-    cout<<setprecision(2)<< percentage << endl;
+    cout<<setprecision(4)<< percentage << endl;
 
     string tmp;
 
