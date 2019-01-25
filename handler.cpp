@@ -11,12 +11,13 @@
 
 #define GET_MEM      "cat /proc/meminfo"
 #define RESTART_GETH "supervisorctl restart geth"
+#define SEND_EMAIL   "bash ./sendEmail.sh "
 
 #define MEM_TOTAL "MemTotal"
 #define MEM_FREE  "MemAvailable"
 
 #define SLEEP_TIME 60 * 30
-#define ZHH_DEBUG 1
+#define ZHH_DEBUG 0
 
 using namespace std;
 
@@ -53,23 +54,30 @@ int Handler::getMemory()
     return 0;
 }
 
-int Handler::do_restart()
+int do_reset_geth(string content)
+{
+    string tmp;
+    string src = SEND_EMAIL + content;
+
+    RmTool::getShellResult(src, tmp, false);
+#if !ZHH_DEBUG
+    RmTool::getShellResult(RESTART_GETH, tmp, false);
+#endif
+    return 0;
+}
+
+int Handler::do_distribution()
 {
     double total = stod(this->totlal_value);
     double free = stod(this->free_value);
 
     double percentage = (total - free) / total;
 
-    cout<<setprecision(4)<< percentage << endl;
-
-    string tmp;
+    cout << "当前内存使用率为：" << setprecision(4) << percentage << endl;
 
     if(RESET_NUM < (total - free) / total)
     {
-#if ZHH_DEBUG
-#else
-        RmTool::getShellResult(RESTART_GETH, tmp, false);
-#endif
+        do_reset_geth(to_string(free));
     }
     else if (EMAIL_NUM < (total - free) / total)
     {
@@ -92,7 +100,7 @@ int Handler::start()
             return -1;
         }
 
-        do_restart();
+        do_distribution();
 
         sleep(SLEEP_TIME);
     }

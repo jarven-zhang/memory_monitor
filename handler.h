@@ -12,7 +12,7 @@ public:
 private:
     int getMemory();
 
-    int do_restart();
+    int do_distribution();
 
     std::string totlal_value;
 
